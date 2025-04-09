@@ -35,7 +35,7 @@ class _BookDetailPageState extends State<BookDetailPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: Size.fromHeight(121), child: getAppBar()),
+          preferredSize: Size.fromHeight(130), child: getAppBar()),
       body: getBody(),
     );
   }
