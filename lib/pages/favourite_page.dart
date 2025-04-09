@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart' as badges;
 import 'package:e_book/json/favourite_json.dart';
+import 'package:e_book/pages/book_detail_page.dart';
 import 'package:e_book/theme/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -86,37 +87,55 @@ class _FavouritePageState extends State<FavouritePage> {
       children: List.generate(favouriteBooksJson.length, (index) {
         return Column(
           children: [
-            Stack(
-              children: [
-                Container(
-                  width: (size.width - 55) / 2,
-                  height: (size.width + 40) / 2,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      image: DecorationImage(
-                          image: NetworkImage(
-                            favouriteBooksJson[index]["img"],
-                          ),
-                          fit: BoxFit.cover)),
-                ),
-                Positioned(
-                  top: 10,
-                  right: 10,
-                  child: Container(
-                    width: 40,
-                    height: 40,
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => BookDetailPage(
+                              img: favouriteBooksJson[index]["img"],
+                              title: favouriteBooksJson[index]["title"],
+                              subTitle: favouriteBooksJson[index]["sub_title"],
+                              price: favouriteBooksJson[index]["price"],
+                              page: favouriteBooksJson[index]["page"],
+                              authorName: favouriteBooksJson[index]
+                                  ["author_name"],
+                              rate:
+                                  favouriteBooksJson[index]["rate"].toString(),
+                            )));
+              },
+              child: Stack(
+                children: [
+                  Container(
+                    width: (size.width - 55) / 2,
+                    height: (size.width + 40) / 2,
                     decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: white,
-                    ),
-                    child: Icon(
-                      Icons.favorite,
-                      color: danger,
-                      size: 28,
-                    ),
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                            image: NetworkImage(
+                              favouriteBooksJson[index]["img"],
+                            ),
+                            fit: BoxFit.cover)),
                   ),
-                )
-              ],
+                  Positioned(
+                    top: 10,
+                    right: 10,
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: white,
+                      ),
+                      child: Icon(
+                        Icons.favorite,
+                        color: danger,
+                        size: 28,
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
             SizedBox(height: 10),
             Container(
